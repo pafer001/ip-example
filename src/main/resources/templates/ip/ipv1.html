@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=1100, initial-scale=1.0, user-scalable=yes, target-densitydpi=device-dpi;" name="viewport"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IP精确查询_精确定位 IP 地址库_dev123.cc</title>
+    <link href="https://cdn.ipip.net" rel="dns-prefetch"/>
+    <link href="https://cdn.ipip.net/loveapp/ipip/www_v2/theme/css/bootstrap.min.css,/loveapp/ipip/www_v2/theme/css/style.css?337086.css"
+          rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.ipip.net/loveapp/ipip/www_v2/theme/js/jquery.min.js" charset="UTF-8"></script>
+    <script src="https://cdn.ipip.net/loveapp/ipip/www_v2/theme/js/bootstrap.min.js" charset="UTF-8"></script>
+
+</head>
+
+<body class="aboutBody">
+<div class="outer topNav" id="topNav"></div>
+<div class="outer ipSearchBanner">
+    <img src="https://cdn.ipip.net/loveapp/ipip/www_en/theme/css/img/icon_Location_Search.png" alt="">
+    <dev >
+        <input id="ipInput" type="text" name="ip" value="" placeholder="请输入IP地址，如：8.8.8.8" autocomplete="off">
+        <button id = "searchId" type="submit" onclick="search()">查询</button>
+    </dev>
+</div>
+<style>
+    .tableNormal th:first-child {
+        text-align: center;
+    }
+    .tableNormal tr td:first-child {
+        width: 165px;
+        text-align: center;
+    }
+    .showInfoTitle {
+        display: inline-block;
+        width: 720px;
+        float:left;
+    }
+    .showInfo1 {
+        background: none;color: #0A246A;width: auto;
+    }
+</style>
+<div class="outer tableNormal ipSearch">
+    <div class="inner">
+        <h2 class="titH2">IP 相关数据信息</h2>
+        <table>
+            <tr>
+                <th style="width: 165px;">数据</th>
+                <th style="width: 915px;clear: both">
+                    <span class="showInfoTitle">信息</span>
+                </th>
+            </tr>
+            <tr>
+                <td>当前IP</td>
+                <td style="clear: both">
+                <span class="showInfo1" id="ipId"></span>
+                </span>
+                    <span style="float: right;">
+                </span>
+                </td>
+            </tr><!-- Reverse DNS  -->
+            <tr>
+                <td>地理位置</td>
+                <td style="clear: both">
+                    <span class="showInfo1" id="locationId"></span>
+                    <span style="float: right">
+                </span>
+                </td>
+            </tr>
+            <tr>
+                <td>运营商</td>
+                <td style="clear: both">
+                    <span id = "orgId" class="showInfo1"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>as信息</td>
+                <td style="clear: both">
+                    <span id = "asId" class="showInfo1"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>时区</td>
+                <td style="clear: both"><span id = "timezoneId"
+                                              class="showInfo1"> </span>
+                </td>
+            </tr>
+            <tr>
+                <td>经纬度</td>
+                <td style="clear: both"><span id="pointId"
+                                              class="showInfo1"></span>
+                </td>
+            </tr>
+        </table>
+
+        <style type="text/css">
+            .asn tr a {
+                background: none;
+                width: auto;
+                height: auto;
+                color: #24414d;
+            }
+        </style>
+
+        <h2 class="titH2">其他数据</span>
+        </h2>
+        <table class="fixWidth">
+            <tbody>
+            <tr>
+                <th>
+                    <a href="http://ip.rtbasia.com/" target="_blank"
+                       style="font-size: 14px;color: #fcfcfc;margin-left: 160px;">RTBAsia非人类访问量甄别服务</a>
+                    <span style="float: right;margin-right: 10px;">
+
+                    </span>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <iframe id = "rtbasiaId" frameborder="0" border="0" scrolling="no" marginwidth="0" marginheight="1" width="360"
+                            height="20" src=""></iframe>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="outer ftMain">
+    <div class="copy">
+        <p style="color: #f0f0f0;line-height: 20px;padding-top: 10px;">©2019 禁止复制</p>
+
+    </div>
+</div>
+
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?e9df8d8c44e2c16bf9cde0e4377062e5";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+    function search() {
+        var s = $("#ipInput").val();
+        $.ajax({
+            type: "GET",
+            url: "/ip/get/v1?ip=" + s,
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1000) {
+                    $("#ipInput").val(data.ip);
+                    $("#ipId").text(data.ip);
+                    var detailInfo = data.detailInfo;
+                    $("#locationId").text(data.location);
+                    $("#orgId").text(detailInfo.org);
+                    $("#timezoneId").text(detailInfo.timezone);
+                    $("#pointId").text(detailInfo.lat +"," + detailInfo.lon);
+                    $("#asId").text(detailInfo.as);
+
+                    $("#rtbasiaId").attr("src", "https://ip.rtbasia.com/webservice/ipip?ipstr=" + data.ip);
+
+                }
+            }
+        });
+    };
+
+    $(function () {
+        $("#topNav").load("./topNav.html");
+        $(window).on('resize', function (event) {
+            if ($(document.body).width() < 1200) {
+                $('.customerBanner').css('background-size', 'cover');
+                $('.aboutBanner').css('background-size', 'cover');
+                $('.jobBanner').css('background-size', 'cover');
+                $('.contactBanner').css('background-size', 'cover');
+                //aboutBanner
+            } else {
+                $('.customerBanner').css('background-size', 'cover');
+                $('.aboutBanner').css('background-size', 'cover');
+                $('.jobBanner').css('background-size', 'cover');
+                $('.contactBanner').css('background-size', 'cover');
+            }
+        });
+        search();
+    })
+</script>
+</body>
+</html>

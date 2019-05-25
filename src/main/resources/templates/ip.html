@@ -1,0 +1,91 @@
+<span id="head"></span>
+
+<body class="index">
+
+<!--logo-->
+<h2 class="title">ip精确定位</h2>
+
+<!--form-->
+
+<div class="search form-inline">
+    <input type="text" name="name" placeholder="输入地址或域名即可查询归属地" class="form-control" id="text"/>
+    <input type="button" value=" 查 询 " class="btn btn-success" id="btn"/>
+</div>
+
+<!--info-->
+<div class="info">
+    <span>您的IP是：[  ]　　来自：</span>
+</div>
+
+
+</div>
+
+
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+<script>
+    $(function () {
+
+        $.ajax({
+            type: "GET",
+            url: "/ip/get/v1?ip=",
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1000) {
+                    var html = "城市信息 :" + data.location + "<br>" +
+                        "时区信息：" + data.detailInfo.timezone + " <br> " +
+                        "as :" + data.detailInfo.as + " <br> " +
+                        "坐标: " + data.detailInfo.lon + "," + data.detailInfo.lat;
+                    $(".info span").html(html);
+                    $("#text").val(data.ip);
+                } else {
+                    var html = "无法解析您输入的IP或域名";
+                    $(".info span").html(html);
+                }
+            }
+        });
+    });
+
+
+    function search() {
+        $(".info span").html("<img src='/image/loading.gif' alt='loading' />");
+        var s = $("#text").val();
+        $.ajax({
+            type: "GET",
+            url: "/ip/get/v1?ip=" + s,
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1000) {
+                    var html = "城市信息 :" + data.location + "<br>" +
+                        "时区信息：" + data.detailInfo.timezone + " <br> " +
+                        "as :" + data.detailInfo.as + " <br> " +
+                        "坐标: " + data.detailInfo.lon + "," + data.detailInfo.lat;
+                    $(".info span").html(html);
+                    $("#text").val(data.ip);
+                } else {
+                    var html = "无法解析您输入的IP或域名";
+                    $(".info span").html(html);
+                }
+            }
+        });
+    }
+
+    $(function () {
+        $("#head").load("./head.html");
+        $("#bottom").load("./bottom.html");
+
+        search();
+        $("#btn").click(search);
+        $("body").keypress(function (e) {
+            var e = e || window.event;
+            if (e.keyCode == 13) {
+                search();
+            }
+        })
+    });
+</script>
+<script src="/js/ip33.js"></script>
+
+<span id="bottom"></span>
+
+</body>
