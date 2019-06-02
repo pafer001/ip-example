@@ -10,6 +10,7 @@ public class IpApiEntity {
     private String city;
     private String country;
     private String countryCode;
+    private String isp;
     private String lat;
     private String lon;
     private String org;
@@ -138,6 +139,14 @@ public class IpApiEntity {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    public String getIsp() {
+        return isp;
+    }
+
+    public void setIsp(String isp) {
+        this.isp = isp;
     }
 
     @Override

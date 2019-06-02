@@ -23,43 +23,4 @@ public class IndexController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/ip", method = RequestMethod.GET)
-    public ModelAndView index(HttpServletRequest request) {
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("ip");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/json", method = RequestMethod.GET)
-    public ModelAndView jsonIndex(HttpServletRequest request) {
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("json");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/timestamp", method = RequestMethod.GET)
-    public ModelAndView timestampIndex(HttpServletRequest request) {
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("timestamp");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/url", method = RequestMethod.GET)
-    public ModelAndView urlencodeIndex(HttpServletRequest request) {
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("url");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/base64", method = RequestMethod.GET)
-    public ModelAndView base64Index(HttpServletRequest request) {
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("base64");
-        return modelAndView;
-    }
 }

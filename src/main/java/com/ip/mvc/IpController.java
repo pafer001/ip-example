@@ -56,7 +56,7 @@ public class IpController {
             Map<String, Object> dataMap = Maps.newHashMap();
             dataMap.put("code", "1000");
             dataMap.put("message", "success");
-            dataMap.putAll(ipService.getIpV1Map(ip));
+            dataMap.put("detial" , ipService.getIpVo(ip));
             return dataMap;
         } catch (Exception e) {
             e.printStackTrace();
