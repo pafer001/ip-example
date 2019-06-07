@@ -53,13 +53,14 @@ public final class ResourceImporter {
                 val array = parseRecord(line);
                 val geoAttributes = new GeoAttributesImpl
                         .Builder()
-                            .withStartInetAddress(InetAddresses.forString(array[0]))
-                            .withEndInetAddress(InetAddresses.forString(array[1]))
-                            .withContinentCode(interner.intern(array[2]))
-                            .withCountryCode(interner.intern(array[3]))
+                            .withIpStart(array[0])
+                            .withIpEnd(array[1])
+                            .withContinent(interner.intern(array[2]))
+                            .withCountry(interner.intern(array[3]))
                             .withProvince(interner.intern(array[4]))
                             .withCity(interner.intern(array[5]))
-                            .withIp(array[6] +","+ array[7])
+                            .withLatitude(array[6])
+                            .withLongitude(array[7])
                         .build();
                 cache.put(geoAttributes);
                 if (i % 100000 == 0) {

@@ -1,73 +1,88 @@
 package com.ip.dbip.domain;
 
-import com.ip.dbip.utils.Strings;
+import com.google.common.base.Strings;
+import com.google.common.net.InetAddresses;
 
+import java.net.Inet4Address;
 import java.net.InetAddress;
 
 public final class GeoAttributesImpl implements GeoAttributes {
 
-	private final String city;
-	private final String continentCode;
-//	private final String country;
+	private final String ipStart;
+	private final String ipEnd;
+	private final String continent;
+	private final String country;
 	private final String province ;
-	private final String countryCode;
-	private final InetAddress startInetAddress;
-	private final InetAddress endInetAddress;
-	private final String ip;
+	private final String city;
+
+	private final Double latitude;
+	private final Double longitude;
+
 
 	private GeoAttributesImpl(final Builder builder) {
-		this.startInetAddress = builder.startInetAddress;
-		this.endInetAddress = builder.endInetAddress;
-		this.city = builder.city;
-		this.continentCode = builder.continentCode;
+		this.ipStart = builder.ipStart;
+		this.ipEnd = builder.ipEnd;
+		this.continent = builder.continent;
+		this.country = builder.country;
 		this.province = builder.province;
-		this.countryCode = builder.countryCode;
-		this.ip = builder.ip;
+
+		this.city = builder.city;
+		this.latitude = builder.latitude;
+		this.longitude = builder.longitude;
 	}
 
 	public static class Builder{
-		private InetAddress startInetAddress;
-		private InetAddress endInetAddress;
-		private String city;
-		private String continentCode;
-		private String province ;
-		private String countryCode;
-		private String ip;
+		private  String ipStart;
+		private  String ipEnd;
+		private  String continent;
+		private  String country;
+		private  String province ;
+		private  String city;
 
-		public Builder withIp(String ip) {
-			this.ip = ip;
+		private  Double latitude;
+		private  Double longitude;
+
+
+
+		public Builder withIpStart(String ipStart) {
+			this.ipStart = ipStart;
 			return this;
 		}
 
-		public Builder withStartInetAddress(final InetAddress startInetAddress){
-			this.startInetAddress = startInetAddress;
+		public Builder withIpEnd( String ipEnd){
+			this.ipEnd = ipEnd;
 			return this;
 		}
 
-		public Builder withCountryCode(final String countryCode){
-			this.countryCode = countryCode;
-			return this;
-		}
-		public Builder withEndInetAddress(final InetAddress endInetAddress){
-			this.endInetAddress = endInetAddress;
+		public Builder withContinent( String continent){
+			this.continent = continent;
 			return this;
 		}
 
+		public Builder withCountry(final String country){
+			this.country = country;
+			return this;
+		}
+
+		public Builder withProvince(final String province){
+			this.province = province;
+			return this;
+		}
 
 		public Builder withCity(final String city){
 			this.city = city;
 			return this;
 		}
 
+		public Builder withLatitude(final String latitude){
 
-		public Builder withContinentCode(final String continentCode){
-			this.continentCode = continentCode;
+			this.latitude = Strings.isNullOrEmpty(latitude) ? 0.0 : Double.parseDouble(latitude);
 			return this;
 		}
 
+		public Builder withLongitude(final String longitude){
 
-		public Builder withProvince(final String province){
-			this.province = province;
+			this.longitude = Strings.isNullOrEmpty(longitude) ? 0.0 : Double.parseDouble(longitude);
 			return this;
 		}
 
@@ -76,27 +91,24 @@ public final class GeoAttributesImpl implements GeoAttributes {
 		}
 	}
 
-
-
 	@Override
-	public InetAddress getStartInetAddress() {
-		return startInetAddress;
-	}
-
-	@Override
-	public InetAddress getEndInetAddress() {
-		return endInetAddress;
+	public int getIpType() {
+		return InetAddresses.forString(ipStart) instanceof Inet4Address ? 1 :2;
 	}
 
 	@Override
 	public GeoEntity getGeoEntity() {
 		return GeoEntity
 				.builder()
-				.city(city)
-				.countryCode(countryCode)
+				.ipStart(ipStart)
+				.ipEnd(ipEnd)
+				.continent(continent)
+				.country(country)
 				.province(province)
-				.ip(ip)
-				.continentCode(continentCode)
+				.city(city)
+				.latitude(latitude)
+				.longitude(longitude)
+				.type(getIpType())
 				.build();
 	}
 

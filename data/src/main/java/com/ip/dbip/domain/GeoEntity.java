@@ -17,21 +17,30 @@ public class GeoEntity {
 
 	public static final GeoEntity EMPTY = empty();
 
+	private final String ipStart;
+	private final String ipEnd;
+	private final String continent;
+	private final String country;
+	private final String province;
 	private final String city;
-	private final String continentCode;
-	private final String province ;
-	private final String countryCode;
-	private final String ip;
+
+	private final Double latitude;
+	private final Double longitude;
+	private final Integer type;
 
 
 	private static GeoEntity empty() {
 		return GeoEntity
 				.builder()
-					.city(Strings.EMPTY)
-					.countryCode(Strings.EMPTY)
-					.province(Strings.EMPTY)
-					.ip(Strings.EMPTY)
-					.continentCode(Strings.EMPTY)
+				.ipStart(Strings.EMPTY)
+				.ipEnd(Strings.EMPTY)
+				.continent(Strings.EMPTY)
+				.country(Strings.EMPTY)
+				.province(Strings.EMPTY)
+				.city(Strings.EMPTY)
+				.latitude(0.0)
+				.longitude(0.0)
+				.type(0)
 				.build();
 	}
 

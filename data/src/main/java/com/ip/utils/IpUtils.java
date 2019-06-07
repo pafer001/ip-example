@@ -1,5 +1,7 @@
 package com.ip.utils;
 
+import com.google.common.net.InetAddresses;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -50,6 +52,31 @@ public class IpUtils {
         }
         System.out.println("获取客户端ip: " + ip);
         return ip;
+    }
+
+
+    public static void main(String[] args) {
+
+//
+//        TreeMap<Integer, String> map = new TreeMap<>();
+//        List<String> list = Lists.newArrayList("1.0.0.0", "1.0.1.0", "1.0.4.0", "1.0.8.0",
+//                "1.0.16.0", "1.0.32.0", "1.0.64.0", "1.0.128.0");
+//
+//
+//        for (String e : list) {
+//
+//            InetAddress inetAddress = InetAddresses.forString(e);
+//            int i = InetAddresses.coerceToInteger(inetAddress);
+//            map.put(i, e);
+//        }
+//        String ip = "1.0.3.234";
+//        Integer startIpNum = InetAddresses.coerceToInteger(InetAddresses.forString(ip));
+//        String s = map.get(map.floorKey(startIpNum));
+//        System.out.println(s);
+
+        String ip1 = "2c0f:ffd8:ffff:f";
+        System.out.println(InetAddresses.isInetAddress(ip1));
+
     }
 
 }

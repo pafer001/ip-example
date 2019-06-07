@@ -47,8 +47,8 @@ public final class JavaTreeMapDbIpCacheImpl implements DbIpCache {
 	@Override
 	public void put(final GeoAttributes geoAttributes) {
 		Assert.notNull(geoAttributes, "geoAttributes must not be null");
-		InetAddress startInetAddress = geoAttributes.getStartInetAddress();
-		InetAddress endInetAddress = geoAttributes.getEndInetAddress();
+		InetAddress startInetAddress = null;
+		InetAddress endInetAddress = null;
 		GeoEntity geoEntity = geoAttributes.getGeoEntity();
 
 		if(startInetAddress instanceof Inet6Address && endInetAddress instanceof Inet6Address) {

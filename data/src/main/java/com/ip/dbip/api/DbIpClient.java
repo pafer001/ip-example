@@ -31,20 +31,20 @@ public final class DbIpClient {
 
 	static {
 
-		String path = SystemConfig.getProperty("db.ip.path");
-		File gzip = new File(path);
-		Assert.checkExpression(!gzip.exists(), "file " + gzip.getName() + " does not exist");
-		synchronized (valueOf(flag)) {
-			if(!flag) {
-				flag = true;
-				log.info("Loading file into repository ");
-				new ResourceImporter().load(gzip);
-				log.info("Loading finished");
-			}
-			else {
-				log.info(" DbIp csv file has already been loaded ");
-			}
-		}
+//		String path = SystemConfig.getProperty("db.ip.path");
+//		File gzip = new File(path);
+//		Assert.checkExpression(!gzip.exists(), "file " + gzip.getName() + " does not exist");
+//		synchronized (valueOf(flag)) {
+//			if(!flag) {
+//				flag = true;
+//				log.info("Loading file into repository ");
+//				new ResourceImporter().load(gzip);
+//				log.info("Loading finished");
+//			}
+//			else {
+//				log.info(" DbIp csv file has already been loaded ");
+//			}
+//		}
 	}
 
 

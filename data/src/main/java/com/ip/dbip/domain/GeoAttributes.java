@@ -4,9 +4,7 @@ import java.net.InetAddress;
 
 public interface GeoAttributes {
 
-	InetAddress getStartInetAddress();
-
-	InetAddress getEndInetAddress();
+	int getIpType();
 
 	GeoEntity getGeoEntity();
 }
