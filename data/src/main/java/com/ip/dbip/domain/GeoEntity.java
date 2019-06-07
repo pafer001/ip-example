@@ -27,6 +27,8 @@ public class GeoEntity {
 	private final Double latitude;
 	private final Double longitude;
 	private final Integer type;
+	private final  String startIpNum;
+	private final String endIpNum;
 
 
 	private static GeoEntity empty() {
@@ -38,6 +40,8 @@ public class GeoEntity {
 				.country(Strings.EMPTY)
 				.province(Strings.EMPTY)
 				.city(Strings.EMPTY)
+				.startIpNum(Strings.EMPTY)
+				.endIpNum(Strings.EMPTY)
 				.latitude(0.0)
 				.longitude(0.0)
 				.type(0)

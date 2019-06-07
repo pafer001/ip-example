@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ip.db.mapper.IpEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.ip.db.entity.IpEntity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="ip_start" property="ipStart" jdbcType="VARCHAR" />
+    <result column="ip_end" property="ipEnd" jdbcType="VARCHAR" />
+    <result column="continent" property="continent" jdbcType="CHAR" />
+    <result column="country" property="country" jdbcType="CHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="REAL" />
+    <result column="longitude" property="longitude" jdbcType="REAL" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="ip_start_num" property="ipStartNum" jdbcType="VARCHAR" />
+    <result column="ip_end_num" property="ipEndNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ip_start, ip_end, continent, country, province, city, latitude, longitude, type, 
+    ip_start_num, ip_end_num
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ip.db.entity.IpEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_ip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_ip
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_ip
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ip.db.entity.IpEntityExample" >
+    delete from t_ip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ip.db.entity.IpEntity" >
+    insert into t_ip (id, ip_start, ip_end, 
+      continent, country, province, 
+      city, latitude, longitude, 
+      type, ip_start_num, ip_end_num
+      )
+    values (#{id,jdbcType=BIGINT}, #{ipStart,jdbcType=VARCHAR}, #{ipEnd,jdbcType=VARCHAR}, 
+      #{continent,jdbcType=CHAR}, #{country,jdbcType=CHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{latitude,jdbcType=REAL}, #{longitude,jdbcType=REAL}, 
+      #{type,jdbcType=INTEGER}, #{ipStartNum,jdbcType=VARCHAR}, #{ipEndNum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ip.db.entity.IpEntity" >
+    insert into t_ip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ipStart != null" >
+        ip_start,
+      </if>
+      <if test="ipEnd != null" >
+        ip_end,
+      </if>
+      <if test="continent != null" >
+        continent,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="ipStartNum != null" >
+        ip_start_num,
+      </if>
+      <if test="ipEndNum != null" >
+        ip_end_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="ipStart != null" >
+        #{ipStart,jdbcType=VARCHAR},
+      </if>
+      <if test="ipEnd != null" >
+        #{ipEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="continent != null" >
+        #{continent,jdbcType=CHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=CHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=REAL},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=REAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="ipStartNum != null" >
+        #{ipStartNum,jdbcType=VARCHAR},
+      </if>
+      <if test="ipEndNum != null" >
+        #{ipEndNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ip.db.entity.IpEntityExample" resultType="java.lang.Integer" >
+    select count(*) from t_ip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_ip
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.ipStart != null" >
+        ip_start = #{record.ipStart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipEnd != null" >
+        ip_end = #{record.ipEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.continent != null" >
+        continent = #{record.continent,jdbcType=CHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=CHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=REAL},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=REAL},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.ipStartNum != null" >
+        ip_start_num = #{record.ipStartNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipEndNum != null" >
+        ip_end_num = #{record.ipEndNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_ip
+    set id = #{record.id,jdbcType=BIGINT},
+      ip_start = #{record.ipStart,jdbcType=VARCHAR},
+      ip_end = #{record.ipEnd,jdbcType=VARCHAR},
+      continent = #{record.continent,jdbcType=CHAR},
+      country = #{record.country,jdbcType=CHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=REAL},
+      longitude = #{record.longitude,jdbcType=REAL},
+      type = #{record.type,jdbcType=INTEGER},
+      ip_start_num = #{record.ipStartNum,jdbcType=VARCHAR},
+      ip_end_num = #{record.ipEndNum,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ip.db.entity.IpEntity" >
+    update t_ip
+    <set >
+      <if test="ipStart != null" >
+        ip_start = #{ipStart,jdbcType=VARCHAR},
+      </if>
+      <if test="ipEnd != null" >
+        ip_end = #{ipEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="continent != null" >
+        continent = #{continent,jdbcType=CHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=CHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=REAL},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=REAL},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="ipStartNum != null" >
+        ip_start_num = #{ipStartNum,jdbcType=VARCHAR},
+      </if>
+      <if test="ipEndNum != null" >
+        ip_end_num = #{ipEndNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ip.db.entity.IpEntity" >
+    update t_ip
+    set ip_start = #{ipStart,jdbcType=VARCHAR},
+      ip_end = #{ipEnd,jdbcType=VARCHAR},
+      continent = #{continent,jdbcType=CHAR},
+      country = #{country,jdbcType=CHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=REAL},
+      longitude = #{longitude,jdbcType=REAL},
+      type = #{type,jdbcType=INTEGER},
+      ip_start_num = #{ipStartNum,jdbcType=VARCHAR},
+      ip_end_num = #{ipEndNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

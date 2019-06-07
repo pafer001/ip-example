@@ -63,7 +63,7 @@ public final class ResourceImporter {
                             .withLongitude(array[7])
                         .build();
                 cache.put(geoAttributes);
-                if (i % 100000 == 0) {
+                if (i % 10000 == 0) {
                     log.debug("Loaded {} entries", i);
                 }
             }

@@ -1,10 +1,13 @@
 package com.ip.dbip.domain;
 
-import java.net.InetAddress;
 
 public interface GeoAttributes {
 
 	int getIpType();
+
+	String getIpStartNum();
+
+	String getIpEndNum();
 
 	GeoEntity getGeoEntity();
 }

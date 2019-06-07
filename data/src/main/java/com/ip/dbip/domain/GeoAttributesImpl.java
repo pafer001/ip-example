@@ -2,8 +2,11 @@ package com.ip.dbip.domain;
 
 import com.google.common.base.Strings;
 import com.google.common.net.InetAddresses;
+import com.ip.dbip.utils.IPUtils;
 
+import java.math.BigInteger;
 import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 
 public final class GeoAttributesImpl implements GeoAttributes {
@@ -17,7 +20,30 @@ public final class GeoAttributesImpl implements GeoAttributes {
 
 	private final Double latitude;
 	private final Double longitude;
+	@Override
+	public int getIpType() {
+		return InetAddresses.forString(ipStart) instanceof Inet4Address ? 1 :2;
+	}
 
+	@Override
+	public String getIpStartNum() {
+		if(getIpType() == 2) {
+			return IPUtils.ipv6ToBigInteger(InetAddresses.forString(ipStart)).toString();
+		} else if (getIpType() == 1) {
+			return String.valueOf(InetAddresses.coerceToInteger(InetAddresses.forString(ipStart)));
+		}
+		return "";
+	}
+
+	@Override
+	public String getIpEndNum() {
+		if(getIpType() == 2) {
+			return IPUtils.ipv6ToBigInteger(InetAddresses.forString(ipEnd)).toString();
+		} else if (getIpType() == 1) {
+			return String.valueOf(InetAddresses.coerceToInteger(InetAddresses.forString(ipEnd)));
+		}
+		return "";
+	}
 
 	private GeoAttributesImpl(final Builder builder) {
 		this.ipStart = builder.ipStart;
@@ -91,10 +117,6 @@ public final class GeoAttributesImpl implements GeoAttributes {
 		}
 	}
 
-	@Override
-	public int getIpType() {
-		return InetAddresses.forString(ipStart) instanceof Inet4Address ? 1 :2;
-	}
 
 	@Override
 	public GeoEntity getGeoEntity() {
@@ -109,6 +131,8 @@ public final class GeoAttributesImpl implements GeoAttributes {
 				.latitude(latitude)
 				.longitude(longitude)
 				.type(getIpType())
+				.startIpNum(getIpStartNum())
+				.endIpNum(getIpEndNum())
 				.build();
 	}
 
