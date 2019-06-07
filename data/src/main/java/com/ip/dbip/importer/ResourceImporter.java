@@ -41,9 +41,7 @@ public final class ResourceImporter {
         try (val fis = new FileInputStream(file);
              val gis = new GZIPInputStream(fis);
              val decorator = new InputStreamReader(gis, StandardCharsets.UTF_8);
-             val reader = new BufferedReader(decorator)
-        )
-        {
+             val reader = new BufferedReader(decorator)) {
             log.debug("Reading dbip data from {}", file.getName());
             String line;
             int i = 0;
@@ -53,14 +51,14 @@ public final class ResourceImporter {
                 val array = parseRecord(line);
                 val geoAttributes = new GeoAttributesImpl
                         .Builder()
-                            .withIpStart(array[0])
-                            .withIpEnd(array[1])
-                            .withContinent(interner.intern(array[2]))
-                            .withCountry(interner.intern(array[3]))
-                            .withProvince(interner.intern(array[4]))
-                            .withCity(interner.intern(array[5]))
-                            .withLatitude(array[6])
-                            .withLongitude(array[7])
+                        .withIpStart(array[0])
+                        .withIpEnd(array[1])
+                        .withContinent(interner.intern(array[2]))
+                        .withCountry(interner.intern(array[3]))
+                        .withProvince(interner.intern(array[4]))
+                        .withCity(interner.intern(array[5]))
+                        .withLatitude(array[6])
+                        .withLongitude(array[7])
                         .build();
                 cache.put(geoAttributes);
                 if (i % 10000 == 0) {

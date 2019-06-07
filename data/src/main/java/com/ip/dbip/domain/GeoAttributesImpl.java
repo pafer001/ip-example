@@ -17,7 +17,6 @@ public final class GeoAttributesImpl implements GeoAttributes {
 	private final String country;
 	private final String province ;
 	private final String city;
-
 	private final Double latitude;
 	private final Double longitude;
 	@Override

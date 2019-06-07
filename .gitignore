@@ -7,5 +7,9 @@ log/*
 .idea
 *.iml
 *.log
-/target/*
 
+data/target/classes/com/ip/db/entity/
+data/target/classes/com/ip/db/mapper/
+data/target/classes/generatorConfig.xml
+data/target/classes/mapping/
+data/target/generated-sources/

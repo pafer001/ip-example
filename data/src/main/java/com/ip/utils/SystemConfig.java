@@ -26,8 +26,6 @@ public class SystemConfig {
 
     }
 
-
-
     /**
      * 获取属性
      * @param key
@@ -58,7 +56,5 @@ public class SystemConfig {
     public static Properties getProperties(){
         return props;
     }
-
-
 
 }
