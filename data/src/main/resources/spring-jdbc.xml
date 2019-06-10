@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd ">
+
+
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"  primary="true">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="5"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="2"/>
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="10"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="10000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x' FROM DUAL"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+    </bean>
+
+
+
+    <!--
+    dataSource属性是必须指定的，它表示用于连接数据库的数据源。
+    mapperLocations：它表示我们的Mapper文件存放的位置
+    configLocation：用于指定Mybatis的配置文件位置。
+    typeAliasesPackage：对应我们的实体类所在的包，默认取对应包中不包括包名的简单类名作为包括包名的别名。多个package可以用逗号或者分号等来进行分隔。
+    typeAliases：数组类型，用来指定别名的
+    -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis_config.xml"/>
+        <property name="typeAliasesPackage" value="com.ip.db.entity"/>
+        <property name="mapperLocations" value="classpath:/mapping/**/*Mapper.xml"/>
+    </bean>
+
+
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage"
+                  value="com.ip.db.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+</beans>

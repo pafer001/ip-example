@@ -1,4 +1,4 @@
-package com.ip.db.entity;
+package com.ip.db.example;
 
 import java.util.ArrayList;
 import java.util.List;

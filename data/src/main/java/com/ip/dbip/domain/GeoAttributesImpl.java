@@ -2,6 +2,7 @@ package com.ip.dbip.domain;
 
 import com.google.common.base.Strings;
 import com.google.common.net.InetAddresses;
+import com.ip.db.entity.IpEntity;
 import com.ip.dbip.utils.IPUtils;
 
 import java.math.BigInteger;
@@ -17,8 +18,8 @@ public final class GeoAttributesImpl implements GeoAttributes {
 	private final String country;
 	private final String province ;
 	private final String city;
-	private final Double latitude;
-	private final Double longitude;
+	private final Float latitude;
+	private final Float longitude;
 	@Override
 	public int getIpType() {
 		return InetAddresses.forString(ipStart) instanceof Inet4Address ? 1 :2;
@@ -64,8 +65,8 @@ public final class GeoAttributesImpl implements GeoAttributes {
 		private  String province ;
 		private  String city;
 
-		private  Double latitude;
-		private  Double longitude;
+		private  Float latitude;
+		private  Float longitude;
 
 
 
@@ -101,13 +102,13 @@ public final class GeoAttributesImpl implements GeoAttributes {
 
 		public Builder withLatitude(final String latitude){
 
-			this.latitude = Strings.isNullOrEmpty(latitude) ? 0.0 : Double.parseDouble(latitude);
+			this.latitude = Strings.isNullOrEmpty(latitude) ? 0.0f : Float.parseFloat(latitude);
 			return this;
 		}
 
 		public Builder withLongitude(final String longitude){
 
-			this.longitude = Strings.isNullOrEmpty(longitude) ? 0.0 : Double.parseDouble(longitude);
+			this.longitude = Strings.isNullOrEmpty(longitude) ? 0.0f : Float.parseFloat(longitude);
 			return this;
 		}
 
@@ -118,8 +119,8 @@ public final class GeoAttributesImpl implements GeoAttributes {
 
 
 	@Override
-	public GeoEntity getGeoEntity() {
-		return GeoEntity
+	public IpEntity getGeoEntity() {
+		return IpEntity
 				.builder()
 				.ipStart(ipStart)
 				.ipEnd(ipEnd)
@@ -130,8 +131,8 @@ public final class GeoAttributesImpl implements GeoAttributes {
 				.latitude(latitude)
 				.longitude(longitude)
 				.type(getIpType())
-				.startIpNum(getIpStartNum())
-				.endIpNum(getIpEndNum())
+				.ipStartNum(getIpStartNum())
+				.ipEndNum(getIpEndNum())
 				.build();
 	}
 

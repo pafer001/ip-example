@@ -1,6 +1,8 @@
 package com.ip.dbip.domain;
 
 
+import com.ip.db.entity.IpEntity;
+
 public interface GeoAttributes {
 
 	int getIpType();
@@ -9,5 +11,5 @@ public interface GeoAttributes {
 
 	String getIpEndNum();
 
-	GeoEntity getGeoEntity();
+	IpEntity getGeoEntity();
 }

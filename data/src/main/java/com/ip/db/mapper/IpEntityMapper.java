@@ -1,7 +1,7 @@
 package com.ip.db.mapper;
 
 import com.ip.db.entity.IpEntity;
-import com.ip.db.entity.IpEntityExample;
+import com.ip.db.example.IpEntityExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,6 +13,8 @@ public interface IpEntityMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(IpEntity record);
+
+    int insertList(List<IpEntity> records);
 
     int insertSelective(IpEntity record);
 
